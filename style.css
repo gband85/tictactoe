@@ -1,0 +1,33 @@
+.board {
+    display: grid;
+    grid-template-columns: repeat(3,50px) ;
+    align-items: center;
+    justify-items: center;
+}
+.cell {
+    height: 50px;
+    width: 50px;
+}
+.one, .two, .four, .five {
+    border-bottom: 2px solid black;
+    border-right: 2px solid black;
+
+    /* align-self: center; */
+    /* justify-self: center; */
+    
+}
+.one {
+    /* align-self: center;
+    justify-self: center; */
+}
+.three, .six {
+    border-bottom: 2px solid black;
+
+}
+.seven, .eight {
+    border-right: 2px solid black;
+
+}
+.nine {
+
+}
