@@ -31,6 +31,13 @@ display winner, wait for reset
 //board module
 //what does it need to do?
 //create board
+//--------------
+//array of 9 empty elements
+
+//mark board
+//---------------
+ //for each element of board array, set text of div element with same index equal to it
+
 //reset board
 //return board state
 
@@ -45,27 +52,53 @@ display winner, wait for reset
 //check for win
 
 //gameboard module
-let gameboard = (function() {
+const gameboard = (function () {
     //create board
-      let _boardArray=["X","X","O","X","O","O","X","O","X"];//Array(9).fill("");
-      let _board=document.querySelectorAll(".cell");    
-let _keys = _boardArray.keys();
+    let boardArray = ["X", "X", "O", "X", "O", "O", "X", "O", "X"];//Array(9).fill("");
+    let board = document.querySelector(".board");
+    let cells=document.querySelectorAll(".cell")
     return {
-          markBoard: function() {
-              //for each index of board array, set text of elem 
-           for (const key of _keys) {
-_board[key].textContent=_boardArray[key];
+        boardArray,
+        board,
+        cells,
+        markBoard: function () {
+            //for each element of board array, set text of div element with same index equal to it 
+            for (let i = 0; i < boardArray.length; i++) {
+                cells[i].textContent = boardArray[i];
             }
-
         },
         //clear board
-       resetBoard: function()  {
-_boardArray.fill("");
+        resetBoard: function () {
+            boardArray.fill("");
         },
         //show current board
-        displayBoard: function() {
-            console.log(_boardArray);
+        displayBoard: function () {
+            console.log(boardArray);
         }
     };
 })();
 
+const Player = function(name) {
+    const markSpace = function(mark,index) {
+gameboard.boardArray[index] = mark;
+    }
+    return {name,markSpace}
+}
+
+const displayController = (function() {
+
+})();
+
+// gameboard._board.forEach((el)=>{
+// el.addEventListener('click',(e)=>{
+//     console.log(e)
+// })
+// })
+const player1 = Player("player1");
+gameboard.board.addEventListener('click',(e)=>{
+    
+
+    console.log(e.target.dataset.location);
+    player1.markSpace("X",e.target.dataset.location)
+    gameboard.markBoard();
+})
