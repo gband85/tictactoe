@@ -54,7 +54,7 @@ display winner, wait for reset
 //gameboard module
 const gameboard = (function () {
     //create board
-    let boardArray = ["X", "X", "O", "X", "O", "O", "X", "O", "X"];//Array(9).fill("");
+    let boardArray = Array(9).fill("");
     let board = document.querySelector(".board");
     let cells=document.querySelectorAll(".cell")
     return {
@@ -79,6 +79,7 @@ const gameboard = (function () {
 })();
 
 const Player = function(name) {
+    //set element at index to mark
     const markSpace = function(mark,index) {
 gameboard.boardArray[index] = mark;
     }
@@ -86,19 +87,15 @@ gameboard.boardArray[index] = mark;
 }
 
 const displayController = (function() {
-
-})();
-
-// gameboard._board.forEach((el)=>{
-// el.addEventListener('click',(e)=>{
-//     console.log(e)
-// })
-// })
+    //create player
 const player1 = Player("player1");
 gameboard.board.addEventListener('click',(e)=>{
     
 
     console.log(e.target.dataset.location);
+    //mark clicked space
     player1.markSpace("X",e.target.dataset.location)
+    //update board
     gameboard.markBoard();
 })
+})();
