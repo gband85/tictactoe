@@ -90,9 +90,6 @@ const displayController = (function() {
     //create player
 const player1 = Player("player1");
 gameboard.board.addEventListener('click',(e)=>{
-    
-
-    console.log(e.target.dataset.location);
     //mark clicked space
     player1.markSpace("X",e.target.dataset.location)
     //update board
