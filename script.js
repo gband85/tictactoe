@@ -54,44 +54,44 @@ display winner, wait for reset
 //gameboard module
 const gameboard = (function () {
     //create board
-    let boardArray = Array(9).fill("");
+    let _boardArray = Array(9).fill("");
     let board = document.querySelector(".board");
-    let cells=document.querySelectorAll(".cell")
+    let _cells=document.querySelectorAll(".cell")
     return {
-        boardArray,
         board,
-        cells,
         markBoard: function () {
             //for each element of board array, set text of div element with same index equal to it 
-            for (let i = 0; i < boardArray.length; i++) {
-                cells[i].textContent = boardArray[i];
+            for (let i = 0; i < _boardArray.length; i++) {
+                _cells[i].textContent = _boardArray[i];
             }
         },
         //clear board
         resetBoard: function () {
-            boardArray.fill("");
+            _boardArray.fill("");
         },
         //show current board
-        displayBoard: function () {
-            console.log(boardArray);
+        markArray: function (mark,index) {
+            _boardArray[index]=mark;
         }
     };
 })();
 
-const Player = function(name) {
+const Player = function(name,playerMark) {
+    //set player's mark
+    const mark = playerMark;
     //set element at index to mark
     const markSpace = function(mark,index) {
-gameboard.boardArray[index] = mark;
+gameboard.markArray(mark,index);
     }
-    return {name,markSpace}
+    return {name,mark,markSpace}
 }
 
 const displayController = (function() {
     //create player
-const player1 = Player("player1");
+const player1 = Player("player1","X");
 gameboard.board.addEventListener('click',(e)=>{
     //mark clicked space
-    player1.markSpace("X",e.target.dataset.location)
+    player1.markSpace(player1.mark,e.target.dataset.location);
     //update board
     gameboard.markBoard();
 })
