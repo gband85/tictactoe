@@ -90,13 +90,12 @@ const displayController = (function() {
     //create player
     gameboard.markBoard()
 const player1 = Player("player1","X");
+const player2=Player("player2","O");
 gameboard.board.addEventListener('click',(e)=>{
 
     //mark clicked space if empty
-    if (e.target.textContent) {
+    if (!e.target.textContent) {
 
-    }
-    else {
     player1.markSpace(player1.mark,e.target.dataset.location);
     }
     //update board
