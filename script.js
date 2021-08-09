@@ -36,7 +36,7 @@ display winner, wait for reset
 
 //mark board
 //---------------
- //for each element of board array, set text of div element with same index equal to it
+//for each element of board array, set text of div element with same index equal to it
 
 //reset board
 //return board state
@@ -56,9 +56,10 @@ const gameboard = (function () {
     //create board
     let _boardArray = Array(9).fill("");
     let board = document.querySelector(".board");
-    let _cells=document.querySelectorAll(".cell")
+    let _cells = document.querySelectorAll(".cell")
     return {
         board,
+        _boardArray,
         markBoard: function () {
             //for each element of board array, set text of div element with same index equal to it 
             for (let i = 0; i < _boardArray.length; i++) {
@@ -70,35 +71,40 @@ const gameboard = (function () {
             _boardArray.fill("");
         },
         //show current board
-        markArray: function (mark,index) {
-            _boardArray[index]=mark;
+        markArray: function (mark, index) {
+            _boardArray[index] = mark;
         }
     };
 })();
 
-const Player = function(name,playerMark) {
+const Player = function (name, playerMark) {
     //set player's mark
     const mark = playerMark;
     //set element at index to mark
-    const markSpace = function(mark,index) {
-gameboard.markArray(mark,index);
+    const markSpace = function (mark, index) {
+        gameboard.markArray(mark, index);
     }
-    return {name,mark,markSpace}
+    return { name, mark, markSpace }
 }
 
-const displayController = (function() {
-    //create player
+const displayController = (function () {
+
     gameboard.markBoard()
-const player1 = Player("player1","X");
-const player2=Player("player2","O");
-gameboard.board.addEventListener('click',(e)=>{
+    const player1 = Player("player1", "X");
+    const player2 = Player("player2", "O");
+    
+        gameboard.board.addEventListener('click', (e) => {
 
-    //mark clicked space if empty
-    if (!e.target.textContent) {
+            //mark clicked space if empty
+            if (!e.target.textContent) {
 
-    player1.markSpace(player1.mark,e.target.dataset.location);
-    }
-    //update board
-    gameboard.markBoard();
-})
+                player1.markSpace(player1.mark, e.target.dataset.location);
+            }
+            //update board
+            gameboard.markBoard();
+            displayController.checkForWin();
+        })
+
+    
 })();
+    //create player
