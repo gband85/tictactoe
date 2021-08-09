@@ -73,7 +73,45 @@ const gameboard = (function () {
         //show current board
         markArray: function (mark, index) {
             _boardArray[index] = mark;
+        },
+        checkForWin: function () {
+            if (
+                (gameboard._boardArray[0] &&
+                    gameboard._boardArray[1] &&
+                    gameboard._boardArray[2]) == "X" ||
+
+                (gameboard._boardArray[0] &&
+                    gameboard._boardArray[4] &&
+                    gameboard._boardArray[8]) == "X" ||
+
+                (gameboard._boardArray[0] &&
+                    gameboard._boardArray[3] &&
+                    gameboard._boardArray[6]) == "X" ||
+
+                (gameboard._boardArray[2] &&
+                    gameboard._boardArray[4] &&
+                    gameboard._boardArray[6]) == "X" ||
+
+                (gameboard._boardArray[1] &&
+                    gameboard._boardArray[4] &&
+                    gameboard._boardArray[7]) == "X" ||
+
+                (gameboard._boardArray[2] &&
+                    gameboard._boardArray[5] &&
+                    gameboard._boardArray[8]) == "X" ||
+
+                (gameboard._boardArray[3] &&
+                    gameboard._boardArray[4] &&
+                    gameboard._boardArray[5]) == "X" ||
+
+                (gameboard._boardArray[6] &&
+                    gameboard._boardArray[7] &&
+                    gameboard._boardArray[8]) == "X"
+            ) {
+console.log("Winner!");
+            }
         }
+        
     };
 })();
 
@@ -90,6 +128,7 @@ const Player = function (name, playerMark) {
 const displayController = (function () {
 
     gameboard.markBoard()
+    //create player
     const player1 = Player("player1", "X");
     const player2 = Player("player2", "O");
     
@@ -102,9 +141,9 @@ const displayController = (function () {
             }
             //update board
             gameboard.markBoard();
+            //check for win
             displayController.checkForWin();
         })
-
     
 })();
-    //create player
+    
