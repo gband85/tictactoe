@@ -54,27 +54,25 @@ display winner, wait for reset
 //gameboard module
 const gameboard = (function () {
     //create board
-    let _boardArray = Array(9).fill("");
-    let board = document.querySelector(".board");
-    let _cells = document.querySelectorAll(".cell")
-    return {
-        board,
-        _boardArray,
-        markBoard: function () {
+    const _boardArray = Array(9).fill("");
+    const board = document.querySelector(".board");
+    const _cells = document.querySelectorAll(".cell")
+    
+       const markBoard = function () {
             //for each element of board array, set text of div element with same index equal to it 
             for (let i = 0; i < _boardArray.length; i++) {
                 _cells[i].textContent = _boardArray[i];
             }
-        },
+        };
         //clear board
-        resetBoard: function () {
+       const resetBoard = function () {
             _boardArray.fill("");
-        },
+        };
         //show current board
-        markArray: function (mark, index) {
+       const markArray = function (mark, index) {
             _boardArray[index] = mark;
-        },
-        checkForWin: function () {
+        };
+       const checkForWin = function () {
             if (
                 (gameboard._boardArray[0] &&
                     gameboard._boardArray[1] &&
@@ -108,10 +106,16 @@ const gameboard = (function () {
                     gameboard._boardArray[7] &&
                     gameboard._boardArray[8]) == "X"
             ) {
-console.log("Winner!");
+return true;
             }
-        }
-        
+        };
+        return {
+            board,
+            _boardArray,
+            markBoard,
+            resetBoard,
+            markArray,
+            checkForWin
     };
 })();
 
@@ -130,9 +134,9 @@ const displayController = (function () {
     //create player
     const player1 = Player("player1", "X");
     const player2 = Player("player2", "O");
-    
-        gameboard.board.addEventListener('click', (e) => {
-
+   
+        gameboard.board.addEventListener('click', function(e) {
+ if (!gameboard.checkForWin()) {
             //mark clicked space if empty
             if (!e.target.textContent) {
 
@@ -141,8 +145,12 @@ const displayController = (function () {
             //update board
             gameboard.markBoard();
             //check for win
-            gameboard.checkForWin();
+            //gameboard.checkForWin();
+         }    
+         else {
+             console.log("Winner!")
+         }
         })
-    
+   
 })();
     
