@@ -127,7 +127,6 @@ const Player = function (name, playerMark) {
 
 const displayController = (function () {
 
-    gameboard.markBoard()
     //create player
     const player1 = Player("player1", "X");
     const player2 = Player("player2", "O");
@@ -142,7 +141,7 @@ const displayController = (function () {
             //update board
             gameboard.markBoard();
             //check for win
-            displayController.checkForWin();
+            gameboard.checkForWin();
         })
     
 })();
