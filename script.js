@@ -133,14 +133,31 @@ const displayController = (function () {
     //create player
     let player1 = Player("player1", "X");
     let player2 = Player("player2", "O");
+    let player1Turn=true;
 
     const updateBoard = function(e) {
         if (!gameboard.checkForWin()) {
+            if (player1Turn) {
             //mark clicked space if empty
             if (!e.target.textContent) {
 
                 player1.markSpace(player1.mark, e.target.dataset.location);
+                player1Turn=!player1Turn;
             }
+else {
+    console.log("pick another spot!")
+}
+        }
+        else {
+            if (!e.target.textContent) {
+
+                player2.markSpace(player2.mark, e.target.dataset.location);
+                player1Turn=!player1Turn;
+            }
+            else {
+                console.log("pick another spot!")
+            }
+        }
             //update board
             gameboard.markBoard();
             //check for win
