@@ -130,13 +130,12 @@ const Player = function (name, playerMark) {
 }
 
 const displayController = (function () {
-
     //create player
-    const player1 = Player("player1", "X");
-    const player2 = Player("player2", "O");
-   
-        gameboard.board.addEventListener('click', function(e) {
- if (!gameboard.checkForWin()) {
+    let player1 = Player("player1", "X");
+    let player2 = Player("player2", "O");
+
+    const updateBoard = function(e) {
+        if (!gameboard.checkForWin()) {
             //mark clicked space if empty
             if (!e.target.textContent) {
 
@@ -150,7 +149,14 @@ const displayController = (function () {
          else {
              console.log("Winner!")
          }
-        })
-   
+    };
+
+   gameboard.board.addEventListener('click', function(e) {
+   updateBoard(e);
+            })
+
+   return {
+       updateBoard
+   }
 })();
     
