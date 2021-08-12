@@ -72,6 +72,28 @@ const gameboard = (function () {
     const markArray = function (mark, index) {
         _boardArray[index] = mark;
     };
+
+    return {
+        board,
+        _boardArray,
+        markBoard,
+        resetBoard,
+        markArray
+    };
+})();
+
+const Player = function (name, playerMark) {
+    //set player's mark
+    const mark = playerMark;
+    //set element at index to mark
+    const markSpace = function (mark, index) {
+        gameboard.markArray(mark, index);
+    }
+    return { name, mark, markSpace }
+}
+
+const displayController = (function () {
+
     const checkForWin = function () {
         const { _boardArray } = gameboard;
          if (
@@ -107,7 +129,7 @@ const gameboard = (function () {
                 _boardArray[7] == "X" &&
                 _boardArray[8] == "X")
         ) {
-return 1;
+return player1.name;
         }
          if (
             (_boardArray[0] == "O" &&
@@ -143,37 +165,13 @@ return 1;
             _boardArray[8] == "O")
          )
           {
-            return 2;
+            return player2.name;
         }
     };
-    return {
-        board,
-        _boardArray,
-        markBoard,
-        resetBoard,
-        markArray,
-        checkForWin
-    };
-})();
 
-const Player = function (name, playerMark) {
-    //set player's mark
-    const mark = playerMark;
-    //set element at index to mark
-    const markSpace = function (mark, index) {
-        gameboard.markArray(mark, index);
-    }
-    return { name, mark, markSpace }
-}
 
-const displayController = (function () {
-    //create player
-    let player1 = Player("player1", "X");
-    let player2 = Player("player2", "O");
-    let player1Turn = true;
-
-    const updateBoard = function (e) {
-        if (gameboard.checkForWin()!=1 && gameboard.checkForWin()!=2) {
+    const playGame = function (e) {
+        if (checkForWin()!=player1.name && checkForWin()!=player2.name) {
             if (player1Turn) {
                 //mark clicked space if empty
                 if (!e.target.textContent) {
@@ -201,19 +199,23 @@ const displayController = (function () {
             //gameboard.checkForWin();
         }
         else {
-            alert(`Player ${gameboard.checkForWin()} wins! Game will now reset.`);
+          //  let winner=player;
+           alert(checkForWin() + "wins! Game will now reset.");
             gameboard.resetBoard();
             gameboard.markBoard();
             player1Turn=true;
         }
     };
 
+    //create player
+    let player1 = Player("playerbbb1", "X");
+    let player2 = Player("playeraaa2", "O");
+    let player1Turn = true;
+
+    //listen for clicks
     gameboard.board.addEventListener('click', function (e) {
-        updateBoard(e);
+        playGame(e);
     })
 
-    return {
-        updateBoard
-    }
 })();
 
