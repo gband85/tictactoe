@@ -73,40 +73,77 @@ const gameboard = (function () {
         _boardArray[index] = mark;
     };
     const checkForWin = function () {
-        if (
-            (gameboard._boardArray[0] == "X" &&
-                gameboard._boardArray[1] == "X" &&
-                gameboard._boardArray[2]) == "X" ||
+        const { _boardArray } = gameboard;
+         if (
+            (_boardArray[0] == "X" &&
+                _boardArray[1] == "X" &&
+                _boardArray[2] == "X") ||
 
-            (gameboard._boardArray[0] == "X" &&
-                gameboard._boardArray[4] == "X" &&
-                gameboard._boardArray[8]) == "X" ||
+            (_boardArray[0] == "X" &&
+                _boardArray[4] == "X" &&
+                _boardArray[8] == "X") ||
 
-            (gameboard._boardArray[0] == "X" &&
-                gameboard._boardArray[3] == "X" &&
-                gameboard._boardArray[6]) == "X" ||
+            (_boardArray[0] == "X" &&
+                _boardArray[3] == "X" &&
+                _boardArray[6] == "X") ||
 
-            (gameboard._boardArray[2] == "X" &&
-                gameboard._boardArray[4] == "X" &&
-                gameboard._boardArray[6]) == "X" ||
+            (_boardArray[2] == "X" &&
+                _boardArray[4] == "X" &&
+                _boardArray[6] == "X") ||
 
-            (gameboard._boardArray[1] == "X" &&
-                gameboard._boardArray[4] == "X" &&
-                gameboard._boardArray[7]) == "X" ||
+            (_boardArray[1] == "X" &&
+                _boardArray[4] == "X" &&
+                _boardArray[7] == "X") ||
 
-            (gameboard._boardArray[2] == "X" &&
-                gameboard._boardArray[5] == "X" &&
-                gameboard._boardArray[8]) == "X" ||
+            (_boardArray[2] == "X" &&
+                _boardArray[5] == "X" &&
+                _boardArray[8] == "X") ||
 
-            (gameboard._boardArray[3] == "X" &&
-                gameboard._boardArray[4] == "X" &&
-                gameboard._boardArray[5]) == "X" ||
+            (_boardArray[3] == "X" &&
+                _boardArray[4] == "X" &&
+                _boardArray[5] == "X") ||
 
-            (gameboard._boardArray[6] == "X" &&
-                gameboard._boardArray[7] == "X" &&
-                gameboard._boardArray[8]) == "X"
+            (_boardArray[6] == "X" &&
+                _boardArray[7] == "X" &&
+                _boardArray[8] == "X")
         ) {
-            return true;
+return 1;
+        }
+         if (
+            (_boardArray[0] == "O" &&
+            _boardArray[1] == "O" &&
+            _boardArray[2] == "O") ||
+
+        (_boardArray[0] == "O" &&
+            _boardArray[4] == "O" &&
+            _boardArray[8] == "O") ||
+
+        (_boardArray[0] == "O" &&
+            _boardArray[3] == "O" &&
+            _boardArray[6] == "O") ||
+
+        (_boardArray[2] == "O" &&
+            _boardArray[4] == "O" &&
+            _boardArray[6] == "O") ||
+
+        (_boardArray[1] == "O" &&
+            _boardArray[4] == "O" &&
+            _boardArray[7] == "O") ||
+
+        (_boardArray[2] == "O" &&
+            _boardArray[5] == "O" &&
+            _boardArray[8] == "O") ||
+
+        (_boardArray[3] == "O" &&
+            _boardArray[4] == "O" &&
+            _boardArray[5] == "O") ||
+
+        (_boardArray[6] == "O" &&
+            _boardArray[7] == "O" &&
+            _boardArray[8] == "O")
+         )
+          {
+            return 2;
         }
     };
     return {
@@ -136,7 +173,7 @@ const displayController = (function () {
     let player1Turn = true;
 
     const updateBoard = function (e) {
-        if (!gameboard.checkForWin()) {
+        if (gameboard.checkForWin()!=1 && gameboard.checkForWin()!=2) {
             if (player1Turn) {
                 //mark clicked space if empty
                 if (!e.target.textContent) {
@@ -145,7 +182,7 @@ const displayController = (function () {
                     player1Turn = !player1Turn;
                 }
                 else {
-                    console.log("pick another spot!")
+                    alert("pick another spot!")
                 }
             }
             else {
@@ -155,7 +192,7 @@ const displayController = (function () {
                     player1Turn = !player1Turn;
                 }
                 else {
-                    console.log("pick another spot!")
+                    alert("pick another spot!")
                 }
             }
             //update board
@@ -164,7 +201,10 @@ const displayController = (function () {
             //gameboard.checkForWin();
         }
         else {
-            console.log("Winner!")
+            alert(`Player ${gameboard.checkForWin()} wins! Game will now reset.`);
+            gameboard.resetBoard();
+            gameboard.markBoard();
+            player1Turn=true;
         }
     };
 
