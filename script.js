@@ -200,7 +200,7 @@ return player1.name;
         }
         else {
           //  let winner=player;
-           alert(checkForWin() + "wins! Game will now reset.");
+           alert(checkForWin() + " wins! Game will now reset.");
             gameboard.resetBoard();
             gameboard.markBoard();
             player1Turn=true;
@@ -208,8 +208,8 @@ return player1.name;
     };
 
     //create player
-    let player1 = Player("playerbbb1", "X");
-    let player2 = Player("playeraaa2", "O");
+    let player1 = Player(prompt("Enter your name, player 1!"), "X");
+    let player2 = Player(prompt("Enter your name, player 2!"), "O");
     let player1Turn = true;
 
     //listen for clicks
