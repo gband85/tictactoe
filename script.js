@@ -56,12 +56,12 @@ const gameboard = (function () {
     //create board
     const boardArray = Array(9).fill("");
     const board = document.querySelector(".board");
-    const _cells = document.querySelectorAll(".cell")
-
+    const _cells = document.querySelectorAll(".cell");
     const markBoard = function () {
-        //for each element of board array, set text of div element with same index equal to it 
+        //for each element of board array, add h3 to div element with same index
+        
         for (let i = 0; i < boardArray.length; i++) {
-            _cells[i].textContent = boardArray[i];
+            _cells[i].innerHTML=`<h3 class="mark">${boardArray[i]}</h3>`;
         }
     };
     //clear board
@@ -98,14 +98,14 @@ let player1Turn;
 let winner=document.querySelector(".winner");
 
 gameboard.resetBoard();
-gameboard.markBoard();
+//gameboard.markBoard();
 
         //listen for clicks
      document.querySelector(".new-game").addEventListener("click", function() {
 
                 //create player
-         player1 = Player(prompt("Enter your name, player 1!"), "X");
-         player2 = Player(prompt("Enter your name, player 2!"), "O");
+         player1 = Player(/*prompt*/(/*"Enter your name, " + */"player 1!"), "X");
+         player2 = Player(/*prompt*/(/*"Enter your name, " + */"player 2!"), "O");
         player1Turn = true;
 
                gameboard.board.addEventListener('click', function (e) {
