@@ -214,9 +214,10 @@ const displayController = (function () {
     const newGame = function () {
         gameboard.resetBoard();
         //create player
-       player1 = Player(/*prompt*/(/*"Enter your name, " + */"player 1!"), "X");
-      player2 = Player(/*prompt*/(/*"Enter your name, " + */"player 2!"), "O");
+     player1 = Player(/*prompt*/(/*"Enter your name, " + */"player 1!"), "X");
+     player2 = Player(/*prompt*/(/*"Enter your name, " + */"player 2!"), "O");
         player1Turn = true;
+        winner.textContent="";
         gameboard.board.addEventListener('click', playGameWrapper,false);
     }
 
