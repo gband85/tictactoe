@@ -100,26 +100,6 @@ const Player = function (name, mark) {
 }
 
 const displayController = (function () {
-    let player1, player2;
-    let player1Turn;
-    let winner = document.querySelector(".winner");
-    const newGame = function () {
-        gameboard.resetBoard();
-        //create player
-        player1 = Player(/*prompt*/(/*"Enter your name, " + */"player 1!"), "X");
-        player2 = Player(/*prompt*/(/*"Enter your name, " + */"player 2!"), "O");
-        player1Turn = true;
-    }
-
-    gameboard.board.addEventListener('click', function (e) {
-        console.log(e);
-        playGame(e);
-    })
-
-    //listen for clicks
-    document.querySelector(".new-game").addEventListener("click", function () {
-newGame();
-    })
 
     const checkForWin = function () {
         const { boardArray } = gameboard;
@@ -228,6 +208,30 @@ newGame();
         }
     };
 
+   const playGameWrapper = function(e) {
+       playGame(e)
+   }
+    const newGame = function () {
+        gameboard.resetBoard();
+        //create player
+       player1 = Player(/*prompt*/(/*"Enter your name, " + */"player 1!"), "X");
+      player2 = Player(/*prompt*/(/*"Enter your name, " + */"player 2!"), "O");
+        player1Turn = true;
+        
+    }
+
+    
+    
+
+ let player1, player2;
+    let player1Turn;
+    let winner = document.querySelector(".winner");
+    //listen for clicks
+    document.querySelector(".new-game").addEventListener("click", newGame,false);
+    
+
+
+gameboard.board.addEventListener('click', playGameWrapper,false);
 
     document.querySelector(".reset").addEventListener("click", function () {
         gameboard.resetBoard();
