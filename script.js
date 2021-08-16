@@ -175,22 +175,16 @@ const displayController = (function () {
         }
     };
 
-
     const playGame = function (e) {
         if (checkForWin() != player1.name && checkForWin() != player2.name) {
             console.log(`e.target.textContent: ${e.target.textContent}`)
             if (!e.target.textContent) {
                 if (player1Turn) {
                     //mark clicked space if empty
-                    console.log(`e.target.textContent: ${e.target.textContent}`)
                     player1.markSpace(player1.mark, e.target.dataset.location);
-
-
                 }
                 else {
                     player2.markSpace(player2.mark, e.target.dataset.location);
-
-
                 }
                 //update board
                 gameboard.markBoard();
@@ -199,47 +193,36 @@ const displayController = (function () {
             else {
                 alert("pick another spot!")
             }
-
         }
         else {
             //  let winner=player;
             winner.textContent = checkForWin() + " wins!";
-
         }
     };
 
-   const playGameWrapper = function(e) {
-       playGame(e)
-   }
+    const playGameWrapper = function (e) {
+        playGame(e)
+    }
     const newGame = function () {
         gameboard.resetBoard();
-        //create player
-     player1 = Player(/*prompt*/(/*"Enter your name, " + */"player 1!"), "X");
-     player2 = Player(/*prompt*/(/*"Enter your name, " + */"player 2!"), "O");
+        //create players
+        player1 = Player(prompt("Enter your name, player 1!"), "X");
+        player2 = Player(prompt("Enter your name, player 2!"), "O");
         player1Turn = true;
-        winner.textContent="";
-        gameboard.board.addEventListener('click', playGameWrapper,false);
+        winner.textContent = "";
+        gameboard.board.addEventListener('click', playGameWrapper, false);
     }
 
-    
-    
-
- let player1, player2;
+    let player1, player2;
     let player1Turn;
     let winner = document.querySelector(".winner");
     //listen for clicks
-    document.querySelector(".new-game").addEventListener("click", newGame,false);
-    
-
-
-
+    document.querySelector(".new-game").addEventListener("click", newGame, false);
 
     document.querySelector(".reset").addEventListener("click", function () {
         gameboard.resetBoard();
-        //  gameboard.markBoard();
         player1Turn = true;
     })
-
 
 })();
 
