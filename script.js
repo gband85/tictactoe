@@ -192,6 +192,9 @@ const displayController = (function () {
                 gameboard.markBoard();
                 player1Turn = !player1Turn;
             }
+            else if (gameboard.getArray().every(x => x != "")) {
+                winner.textContent="Tie!";
+            }
             else {
                 alert("pick another spot!")
             }
