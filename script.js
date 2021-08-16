@@ -55,7 +55,6 @@ display winner, wait for reset
 const gameboard = (function () {
     //create board
     const boardArray = Array(9).fill("");
-    const board = document.querySelector(".board");
     const _cells = document.querySelectorAll(".cell");
     const markBoard = function () {
 
@@ -82,9 +81,12 @@ const gameboard = (function () {
         boardArray[index] = mark;
     };
 
+    const getArray = function() {
+        return boardArray;
+    }
+
     return {
-        board,
-        boardArray,
+        getArray,
         markBoard,
         resetBoard,
         markArray
@@ -102,74 +104,74 @@ const Player = function (name, mark) {
 const displayController = (function () {
 
     const checkForWin = function () {
-        const { boardArray } = gameboard;
+        const { getArray } = gameboard;
         if (
-            (boardArray[0] == "X" &&
-                boardArray[1] == "X" &&
-                boardArray[2] == "X") ||
+            (getArray()[0] == "X" &&
+               getArray()[1] == "X" &&
+                getArray()[2] == "X") ||
 
-            (boardArray[0] == "X" &&
-                boardArray[4] == "X" &&
-                boardArray[8] == "X") ||
+            (getArray()[0] == "X" &&
+                getArray()[4] == "X" &&
+                getArray()[8] == "X") ||
 
-            (boardArray[0] == "X" &&
-                boardArray[3] == "X" &&
-                boardArray[6] == "X") ||
+            (getArray()[0] == "X" &&
+                getArray()[3] == "X" &&
+                getArray[6] == "X") ||
 
-            (boardArray[2] == "X" &&
-                boardArray[4] == "X" &&
-                boardArray[6] == "X") ||
+            (getArray()[2] == "X" &&
+                getArray()[4] == "X" &&
+                getArray()[6] == "X") ||
 
-            (boardArray[1] == "X" &&
-                boardArray[4] == "X" &&
-                boardArray[7] == "X") ||
+            (getArray()[1] == "X" &&
+                getArray()[4] == "X" &&
+                getArray()[7] == "X") ||
 
-            (boardArray[2] == "X" &&
-                boardArray[5] == "X" &&
-                boardArray[8] == "X") ||
+            (getArray()[2] == "X" &&
+                getArray()[5] == "X" &&
+                getArray()[8] == "X") ||
 
-            (boardArray[3] == "X" &&
-                boardArray[4] == "X" &&
-                boardArray[5] == "X") ||
+            (getArray()[3] == "X" &&
+                getArray()[4] == "X" &&
+                getArray()[5] == "X") ||
 
-            (boardArray[6] == "X" &&
-                boardArray[7] == "X" &&
-                boardArray[8] == "X")
+            (getArray()[6] == "X" &&
+                getArray()[7] == "X" &&
+                getArray()[8] == "X")
         ) {
             return player1.name;
         }
         if (
-            (boardArray[0] == "O" &&
-                boardArray[1] == "O" &&
-                boardArray[2] == "O") ||
+            (getArray()[0] == "O" &&
+                getArray()[1] == "O" &&
+                getArray()[2] == "O") ||
 
-            (boardArray[0] == "O" &&
-                boardArray[4] == "O" &&
-                boardArray[8] == "O") ||
+            (getArray()[0] == "O" &&
+                getArray()[4] == "O" &&
+                getArray()[8] == "O") ||
 
-            (boardArray[0] == "O" &&
-                boardArray[3] == "O" &&
-                boardArray[6] == "O") ||
+            (getArray()[0] == "O" &&
+                getArray()[3] == "O" &&
+                getArray()[6] == "O") ||
 
-            (boardArray[2] == "O" &&
-                boardArray[4] == "O" &&
-                boardArray[6] == "O") ||
+            (getArray()[2] == "O" &&
+                getArray()[4] == "O" &&
+                getArray()[6] == "O") ||
 
-            (boardArray[1] == "O" &&
-                boardArray[4] == "O" &&
-                boardArray[7] == "O") ||
+            (getArray()[1] == "O" &&
+                getArray()[4] == "O" &&
+                getArray()[7] == "O") ||
 
-            (boardArray[2] == "O" &&
-                boardArray[5] == "O" &&
-                boardArray[8] == "O") ||
+            (getArray()[2] == "O" &&
+                getArray()[5] == "O" &&
+                getArray()[8] == "O") ||
 
-            (boardArray[3] == "O" &&
-                boardArray[4] == "O" &&
-                boardArray[5] == "O") ||
+            (getArray()[3] == "O" &&
+                getArray()[4] == "O" &&
+                getArray()[5] == "O") ||
 
-            (boardArray[6] == "O" &&
-                boardArray[7] == "O" &&
-                boardArray[8] == "O")
+            (getArray()[6] == "O" &&
+                getArray()[7] == "O" &&
+                getArray()[8] == "O")
         ) {
             return player2.name;
         }
@@ -210,7 +212,7 @@ const displayController = (function () {
         player2 = Player(prompt("Enter your name, player 2!"), "O");
         player1Turn = true;
         winner.textContent = "";
-        gameboard.board.addEventListener('click', playGameWrapper, false);
+        document.querySelector(".board").addEventListener('click', playGameWrapper, false);
     }
 
     let player1, player2;
