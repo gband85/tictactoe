@@ -58,15 +58,24 @@ const gameboard = (function () {
     const board = document.querySelector(".board");
     const _cells = document.querySelectorAll(".cell");
     const markBoard = function () {
-        //for each element of board array, add h3 to div element with same index
-        
+
+        //for each element of board array if present, add h3 to div element with same index
+
         for (let i = 0; i < boardArray.length; i++) {
-            _cells[i].innerHTML=`<h3 class="mark">${boardArray[i]}</h3>`;
+            if (boardArray[i]) {
+                _cells[i].innerHTML = `<h3 class="mark">${boardArray[i]}</h3>`;
+            }
         }
     };
     //clear board
     const resetBoard = function () {
         boardArray.fill("");
+        console.log(boardArray);
+        console.log(_cells)
+        for (let i = 0; i < boardArray.length; i++) {
+            _cells[i].innerHTML = "";
+            // console.log(_cells[i].textContent)
+        }
     };
     //show current board
     const markArray = function (mark, index) {
@@ -82,9 +91,7 @@ const gameboard = (function () {
     };
 })();
 
-const Player = function (name, playerMark) {
-    //set player's mark
-    const mark = playerMark;
+const Player = function (name, mark) {
     //set element at index to mark
     const markSpace = function (mark, index) {
         gameboard.markArray(mark, index);
@@ -93,30 +100,30 @@ const Player = function (name, playerMark) {
 }
 
 const displayController = (function () {
-let player1,player2;
-let player1Turn;
-let winner=document.querySelector(".winner");
-
-gameboard.resetBoard();
-//gameboard.markBoard();
-
-        //listen for clicks
-     document.querySelector(".new-game").addEventListener("click", function() {
-
-                //create player
-         player1 = Player(/*prompt*/(/*"Enter your name, " + */"player 1!"), "X");
-         player2 = Player(/*prompt*/(/*"Enter your name, " + */"player 2!"), "O");
+    let player1, player2;
+    let player1Turn;
+    let winner = document.querySelector(".winner");
+    const newGame = function () {
+        gameboard.resetBoard();
+        //create player
+        player1 = Player(/*prompt*/(/*"Enter your name, " + */"player 1!"), "X");
+        player2 = Player(/*prompt*/(/*"Enter your name, " + */"player 2!"), "O");
         player1Turn = true;
+    }
 
-               gameboard.board.addEventListener('click', function (e) {
-            playGame(e);
-        })
+    gameboard.board.addEventListener('click', function (e) {
+        console.log(e);
+        playGame(e);
+    })
 
+    //listen for clicks
+    document.querySelector(".new-game").addEventListener("click", function () {
+newGame();
     })
 
     const checkForWin = function () {
         const { boardArray } = gameboard;
-         if (
+        if (
             (boardArray[0] == "X" &&
                 boardArray[1] == "X" &&
                 boardArray[2] == "X") ||
@@ -149,90 +156,84 @@ gameboard.resetBoard();
                 boardArray[7] == "X" &&
                 boardArray[8] == "X")
         ) {
-return player1.name;
+            return player1.name;
         }
-         if (
+        if (
             (boardArray[0] == "O" &&
-            boardArray[1] == "O" &&
-            boardArray[2] == "O") ||
+                boardArray[1] == "O" &&
+                boardArray[2] == "O") ||
 
-        (boardArray[0] == "O" &&
-            boardArray[4] == "O" &&
-            boardArray[8] == "O") ||
+            (boardArray[0] == "O" &&
+                boardArray[4] == "O" &&
+                boardArray[8] == "O") ||
 
-        (boardArray[0] == "O" &&
-            boardArray[3] == "O" &&
-            boardArray[6] == "O") ||
+            (boardArray[0] == "O" &&
+                boardArray[3] == "O" &&
+                boardArray[6] == "O") ||
 
-        (boardArray[2] == "O" &&
-            boardArray[4] == "O" &&
-            boardArray[6] == "O") ||
+            (boardArray[2] == "O" &&
+                boardArray[4] == "O" &&
+                boardArray[6] == "O") ||
 
-        (boardArray[1] == "O" &&
-            boardArray[4] == "O" &&
-            boardArray[7] == "O") ||
+            (boardArray[1] == "O" &&
+                boardArray[4] == "O" &&
+                boardArray[7] == "O") ||
 
-        (boardArray[2] == "O" &&
-            boardArray[5] == "O" &&
-            boardArray[8] == "O") ||
+            (boardArray[2] == "O" &&
+                boardArray[5] == "O" &&
+                boardArray[8] == "O") ||
 
-        (boardArray[3] == "O" &&
-            boardArray[4] == "O" &&
-            boardArray[5] == "O") ||
+            (boardArray[3] == "O" &&
+                boardArray[4] == "O" &&
+                boardArray[5] == "O") ||
 
-        (boardArray[6] == "O" &&
-            boardArray[7] == "O" &&
-            boardArray[8] == "O")
-         )
-          {
+            (boardArray[6] == "O" &&
+                boardArray[7] == "O" &&
+                boardArray[8] == "O")
+        ) {
             return player2.name;
         }
     };
 
 
     const playGame = function (e) {
-        if (checkForWin()!=player1.name && checkForWin()!=player2.name) {
-            if (player1Turn) {
-                //mark clicked space if empty
-                if (!e.target.textContent) {
-
+        if (checkForWin() != player1.name && checkForWin() != player2.name) {
+            console.log(`e.target.textContent: ${e.target.textContent}`)
+            if (!e.target.textContent) {
+                if (player1Turn) {
+                    //mark clicked space if empty
+                    console.log(`e.target.textContent: ${e.target.textContent}`)
                     player1.markSpace(player1.mark, e.target.dataset.location);
-                    player1Turn = !player1Turn;
+
+
                 }
                 else {
-                    alert("pick another spot!")
+                    player2.markSpace(player2.mark, e.target.dataset.location);
+
+
                 }
+                //update board
+                gameboard.markBoard();
+                player1Turn = !player1Turn;
             }
             else {
-                if (!e.target.textContent) {
-
-                    player2.markSpace(player2.mark, e.target.dataset.location);
-                    player1Turn = !player1Turn;
-                }
-                else {
-                    alert("pick another spot!")
-                }
+                alert("pick another spot!")
             }
-            //update board
-            gameboard.markBoard();
-            //check for win
-            //gameboard.checkForWin();
+
         }
         else {
-          //  let winner=player;
-         winner.textContent =checkForWin() + " wins!";
-            gameboard.resetBoard();
-            gameboard.markBoard();
-            player1Turn=true;
+            //  let winner=player;
+            winner.textContent = checkForWin() + " wins!";
+
         }
     };
 
 
-document.querySelector(".reset").addEventListener("click", function() {
-    gameboard.resetBoard();
-    gameboard.markBoard();
-    player1Turn=true;
-})
+    document.querySelector(".reset").addEventListener("click", function () {
+        gameboard.resetBoard();
+        //  gameboard.markBoard();
+        player1Turn = true;
+    })
 
 
 })();
