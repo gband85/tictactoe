@@ -217,7 +217,7 @@ const displayController = (function () {
        player1 = Player(/*prompt*/(/*"Enter your name, " + */"player 1!"), "X");
       player2 = Player(/*prompt*/(/*"Enter your name, " + */"player 2!"), "O");
         player1Turn = true;
-        
+        gameboard.board.addEventListener('click', playGameWrapper,false);
     }
 
     
@@ -231,7 +231,7 @@ const displayController = (function () {
     
 
 
-gameboard.board.addEventListener('click', playGameWrapper,false);
+
 
     document.querySelector(".reset").addEventListener("click", function () {
         gameboard.resetBoard();
